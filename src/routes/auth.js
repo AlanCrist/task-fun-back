@@ -15,6 +15,10 @@ function signToken(userId) {
 
 // POST /auth/register
 router.post('/register', async (req, res) => {
+  if (process.env.REGISTRATION_OPEN !== 'true') {
+    return res.status(403).json({ error: 'Cadastro desabilitado. Entre em contato com o administrador.' });
+  }
+
   try {
     const { name, email, password, avatar } = req.body;
 
